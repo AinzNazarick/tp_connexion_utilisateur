@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Gestion des utilisateurs</h1>
+    <ul>
+        {% for user in users %}
+        <li>
+            {{ user.email }} - Rôle(s) : {{ user.roles|join(', ') }}
+            <a href="{{ path('app_super_admin_change_role', {id: user.id}) }}">Attribuer le role admin</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
