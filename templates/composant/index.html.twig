@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Composant index{% endblock %}
+
+{% block body %}
+    {%  if is_granted('ROLE_ADMIN') %}
+        <h1>Composant index</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for composant in composants %}
+                <tr>
+                    <td>{{ composant.id }}</td>
+                    <td>{{ composant.name }}</td>
+                    <td>
+                        <a href="{{ path('app_composant_show', {'id': composant.id}) }}">show</a>
+                        <a href="{{ path('app_composant_edit', {'id': composant.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_composant_new') }}">Create new</a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmer l'archivage de la voiture{% endblock %}
+
+{% block body %}
+    <h1>Archiver la voiture : {{ voiture.marque.name }} - {{ voiture.model }}</h1>
+
+    <p>Êtes-vous sûr de vouloir archiver cette voiture ? Cette action est irréversible.</p>
+
+    <form method="post" action="{{ path('app_voiture_archive_confirm', {id: voiture.id}) }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('archive' ~ voiture.id) }}">
+
+        <button class="btn btn-warning" type="submit">Confirmer l'archivage</button>
+        <a href="{{ path('app_voiture_index') }}" class="btn btn-secondary">Annuler</a>
+    </form>
+{% endblock %}

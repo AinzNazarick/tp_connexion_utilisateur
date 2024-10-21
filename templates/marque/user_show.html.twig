@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Marque{% endblock %}
+
+{% block body %}
+    {%  if is_granted('ROLE_USER') %}
+        <h1>Marque</h1>
+
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ marque.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ marque.name }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_marque_user_index') }}">back to list</a>
+    {% endif %}
+{% endblock %}

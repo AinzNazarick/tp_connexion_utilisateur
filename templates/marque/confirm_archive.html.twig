@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmer l'archivage de la marque{% endblock %}
+
+{% block body %}
+    <h1>Archiver la marque : {{ marque.name }}</h1>
+
+    <p>Êtes-vous sûr de vouloir archiver cette marque ?</p>
+    <p>Cette action archivera également toutes les voitures associées.</p>
+
+    <form method="post" action="{{ path('app_marque_archive_confirm', {id: marque.id}) }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('archive' ~ marque.id) }}">
+
+        <button class="btn btn-warning" type="submit">Confirmer l'archivage</button>
+        <a href="{{ path('app_marque_index') }}" class="btn btn-secondary">Annuler</a>
+    </form>
+{% endblock %}

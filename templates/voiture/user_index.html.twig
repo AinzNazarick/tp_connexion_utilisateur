@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Voiture index{% endblock %}
+
+{% block body %}
+    {%  if is_granted('ROLE_USER') %}
+        <h1>Voiture index</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Model</th>
+                <th>Marque</th>
+                <th>Composant</th>
+                <th>Price</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for voiture in voitures %}
+                <tr>
+                    <td>{{ voiture.model }}</td>
+                    <td>{{ voiture.marque.name }}</td>
+                    <td>
+                        <ul>
+                            {% for composant in voiture.composant %}
+                                <li>
+                                    {{ composant.name }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>{{ voiture.price }}</td>
+                    <td>
+                        <a href="{{ path('app_voiture_user_show', {'id': voiture.id}) }}">show</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Aucune voiture trouvée</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

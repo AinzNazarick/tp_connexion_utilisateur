@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Marque index{% endblock %}
+
+{% block body %}
+    {%  if is_granted('ROLE_USER') %}
+        <h1>Marque index</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for marque in marques %}
+                <tr>
+                    <td>{{ marque.name }}</td>
+                    <td>
+                        <a href="{{ path('app_marque_user_show', {'id': marque.id}) }}">show</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Aucune marque trouvée</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

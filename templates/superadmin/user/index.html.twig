@@ -6,7 +6,7 @@
         {% for user in users %}
         <li>
             {{ user.email }} - Rôle(s) : {{ user.roles|join(', ') }}
-            <a href="{{ path('app_super_admin_change_role', {id: user.id}) }}">Attribuer le role admin</a>
+            <a href="{{ path('app_superadmin_change_role', {id: user.id}) }}">Attribuer le role admin</a>
         </li>
         {% endfor %}
     </ul>

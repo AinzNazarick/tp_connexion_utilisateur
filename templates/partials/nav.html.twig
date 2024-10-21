@@ -6,12 +6,50 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_superadmin_index') }}">Super Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_admin_index') }}">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ app.current_route == 'voiture.' ? 'active' : '' }}" href="{{ path('app_voiture_index') }}">Voiture</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ app.current_route == 'marque.' ? 'active' : '' }}" href="{{ path('app_marque_index') }}">Marque</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ app.current_route == 'composant.' ? 'active' : '' }}" href="{{ path('app_composant_index') }}">Composant</a>
+                    </li>
+                {% elseif is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_admin_index') }}">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ app.current_route == 'voiture.' ? 'active' : '' }}" href="{{ path('app_voiture_index') }}">Voiture</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ app.current_route == 'marque.' ? 'active' : '' }}" href="{{ path('app_marque_index') }}">Marque</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ app.current_route == 'composant.' ? 'active' : '' }}" href="{{ path('app_composant_index') }}">Composant</a>
+                    </li>
+                {% endif %}
+                {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') and not is_granted('ROLE_SUPER_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link {{ app.current_route == 'voiture.' ? 'active' : '' }}" href="{{ path('app_voiture_user_index') }}">Voiture</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ app.current_route == 'marque.' ? 'active' : '' }}" href="{{ path('app_marque_user_index') }}">Marque</a>
+                    </li>
+                {% endif %}
                 {% if is_granted('ROLE_USER') %}
                     <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+                        <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="" >{{ app.user.email }}</a>
+                        <a class="nav-link" href="{{ path('app_profil') }}" >{{ app.user.email }}</a>
                     </li>
                 {% else %}
                     <li class="nav-item">

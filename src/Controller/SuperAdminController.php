@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class SuperAdminController extends AbstractController
 {
-    #[Route('/super-admin', name: 'app_super-admin_index', methods: ['GET'])]
+    #[Route('/superadmin', name: 'app_superadmin_index', methods: ['GET'])]
     public function index(UtilisateurRepository $userRepo): Response
     {
         if($this->isGranted('ROLE_SUPER_ADMIN')) {
@@ -24,7 +24,7 @@ class SuperAdminController extends AbstractController
         return $this->redirectToRoute('home.index');
     }
 
-    #[Route('/super-admin/role/{id}', name: 'app_super_admin_change_role', methods: ['GET'])]
+    #[Route('/superadmin/role/{id}', name: 'app_superadmin_change_role', methods: ['GET'])]
     public function changeRoleUser(Utilisateur $user, EntityManagerInterface $em): Response{
         if($this->isGranted('ROLE_SUPER_ADMIN')) {
             $user->setRoles(['ROLE_ADMIN']);
