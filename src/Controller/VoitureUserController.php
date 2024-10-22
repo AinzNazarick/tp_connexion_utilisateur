@@ -16,7 +16,7 @@ class VoitureUserController extends AbstractController
     #[Route(name: 'app_voiture_user_index', methods: ['GET'])]
     public function index(VoitureRepository $voitureRepository): Response
     {
-        return $this->render('voiture/user_index.html.twig', [
+        return $this->render('voiture_user/user_index.html.twig', [
             'voitures' => $voitureRepository->findNoArchived(),
         ]);
     }
@@ -24,7 +24,7 @@ class VoitureUserController extends AbstractController
     #[Route('/show/{id}', name: 'app_voiture_user_show', methods: ['GET'])]
     public function show(Voiture $voiture): Response
     {
-        return $this->render('voiture/user_show.html.twig', [
+        return $this->render('voiture_user/user_show.html.twig', [
             'voiture' => $voiture,
         ]);
     }

@@ -20,7 +20,7 @@ final class MarqueController extends AbstractController
     public function index(MarqueRepository $marqueRepository): Response
     {
         $marques = $marqueRepository->findNoArchived();
-        return $this->render('marque/index.html.twig', [
+        return $this->render('admin/marque/index.html.twig', [
 //            'marques' => $marqueRepository->findAll(),
             'marques' => $marques,
         ]);
@@ -40,7 +40,7 @@ final class MarqueController extends AbstractController
             return $this->redirectToRoute('app_marque_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('marque/new.html.twig', [
+        return $this->render('admin/marque/new.html.twig', [
             'marque' => $marque,
             'form' => $form,
         ]);
@@ -49,8 +49,9 @@ final class MarqueController extends AbstractController
     #[Route('/show/{id}', name: 'app_marque_show', methods: ['GET'])]
     public function show(Marque $marque): Response
     {
-        return $this->render('marque/show.html.twig', [
+        return $this->render('admin/marque/show.html.twig', [
             'marque' => $marque,
+            'voitures' => $marque->getVoitures(),
         ]);
     }
 
@@ -66,7 +67,7 @@ final class MarqueController extends AbstractController
             return $this->redirectToRoute('app_marque_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('marque/edit.html.twig', [
+        return $this->render('admin/marque/edit.html.twig', [
             'marque' => $marque,
             'form' => $form,
         ]);
@@ -75,11 +76,16 @@ final class MarqueController extends AbstractController
     #[Route('/{id}', name: 'app_marque_delete', methods: ['POST'])]
     public function delete(Request $request, Marque $marque, EntityManagerInterface $entityManager): Response
     {
-        if(!$marque->isArchive() && $marque->getVoitures()->isEmpty()) {
-            if ($this->isCsrfTokenValid('delete'.$marque->getId(), $request->getPayload()->getString('_token'))) {
+        if ($marque->isArchive() || $marque->getVoitures()->isEmpty()) {
+            if ($this->isCsrfTokenValid('delete'.$marque->getId(), $request->request->get('_token'))) {
+
+                foreach ($marque->getVoitures() as $voiture) {
+                    $entityManager->remove($voiture);
+                }
+
                 $entityManager->remove($marque);
                 $entityManager->flush();
-                $this->addFlash('success', 'Marque supprimée avec succès');
+                $this->addFlash('success', 'Marque et voiture associées supprimées avec succès.');
             }
         } else {
             $this->addFlash('danger', 'Impossible de supprimer une marque avec des voitures non archivées.');
@@ -101,7 +107,7 @@ final class MarqueController extends AbstractController
             }
         }
 
-        return $this->render('marque/confirm_archive.html.twig', [
+        return $this->render('admin/marque/confirm_archive.html.twig', [
             'marque' => $marque,
         ]);
 
@@ -112,7 +118,7 @@ final class MarqueController extends AbstractController
     {
         $marquesArchivees = $marqueRepository->findArchivedMarque();
 
-        return $this->render('marque/archive_list.html.twig', [
+        return $this->render('admin/marque/archive_list.html.twig', [
             'marques' => $marquesArchivees,
         ]);
     }

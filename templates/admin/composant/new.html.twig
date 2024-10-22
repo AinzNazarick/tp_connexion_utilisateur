@@ -6,7 +6,7 @@
     {%  if is_granted('ROLE_ADMIN') %}
         <h1>Create new Composant</h1>
 
-        {{ include('composant/_form.html.twig') }}
+        {{ include('admin/composant/_form.html.twig') }}
 
         <a href="{{ path('app_composant_index') }}">back to list</a>
     {% endif %}

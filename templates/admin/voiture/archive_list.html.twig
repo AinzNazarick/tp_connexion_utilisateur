@@ -31,7 +31,7 @@
                 <td>{{ voiture.price }}</td>
                 <td>
                     <a href="{{ path('app_voiture_show', {'id': voiture.id}) }}">show</a>
-                    {{ include('voiture/_delete_form.html.twig') }}
+                    {{ include('admin/voiture/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

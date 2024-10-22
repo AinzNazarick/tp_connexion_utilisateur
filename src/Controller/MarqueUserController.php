@@ -17,7 +17,7 @@ class MarqueUserController extends AbstractController
     public function index(MarqueRepository $marqueRepository): Response
     {
         $marques = $marqueRepository->findNoArchived();
-        return $this->render('marque/user_index.html.twig', [
+        return $this->render('marque_user/user_index.html.twig', [
             'marques' => $marques,
         ]);
     }
@@ -25,8 +25,9 @@ class MarqueUserController extends AbstractController
     #[Route('/show/{id}', name: 'app_marque_user_show', methods: ['GET'])]
     public function show(Marque $marque): Response
     {
-        return $this->render('marque/user_show.html.twig', [
+        return $this->render('marque_user/user_show.html.twig', [
             'marque' => $marque,
+            'voitures' => $marque->getVoitures(),
         ]);
     }
 }

@@ -31,12 +31,12 @@
                 </td>
                 <td>
                     <a href="{{ path('app_marque_show', {'id': marque.id}) }}">show</a>
-                    {{ include('marque/_delete_form.html.twig') }}
+                    {{ include('admin/marque/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">Aucune marque archivées trouvées</td>
+                <td colspan="5">Aucune marque archivée trouvée</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -19,7 +19,7 @@ final class ComposantController extends AbstractController
     #[Route(name: 'app_composant_index', methods: ['GET'])]
     public function index(ComposantRepository $composantRepository): Response
     {
-        return $this->render('composant/index.html.twig', [
+        return $this->render('admin/composant/index.html.twig', [
             'composants' => $composantRepository->findAll(),
         ]);
     }
@@ -38,7 +38,7 @@ final class ComposantController extends AbstractController
             return $this->redirectToRoute('app_composant_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('composant/new.html.twig', [
+        return $this->render('admin/composant/new.html.twig', [
             'composant' => $composant,
             'form' => $form,
         ]);
@@ -47,7 +47,7 @@ final class ComposantController extends AbstractController
     #[Route('/{id}', name: 'app_composant_show', methods: ['GET'])]
     public function show(Composant $composant): Response
     {
-        return $this->render('composant/show.html.twig', [
+        return $this->render('admin/composant/show.html.twig', [
             'composant' => $composant,
         ]);
     }
@@ -64,7 +64,7 @@ final class ComposantController extends AbstractController
             return $this->redirectToRoute('app_composant_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('composant/edit.html.twig', [
+        return $this->render('admin/composant/edit.html.twig', [
             'composant' => $composant,
             'form' => $form,
         ]);

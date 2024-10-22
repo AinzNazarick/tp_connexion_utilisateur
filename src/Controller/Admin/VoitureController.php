@@ -19,7 +19,7 @@ final class VoitureController extends AbstractController
     #[Route(name: 'app_voiture_index', methods: ['GET'])]
     public function index(VoitureRepository $voitureRepository): Response
     {
-        return $this->render('voiture/index.html.twig', [
+        return $this->render('admin/voiture/index.html.twig', [
 //            'voitures' => $voitureRepository->findAll(),
             'voitures' => $voitureRepository->findNoArchived(),
         ]);
@@ -39,7 +39,7 @@ final class VoitureController extends AbstractController
             return $this->redirectToRoute('app_voiture_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('voiture/new.html.twig', [
+        return $this->render('admin/voiture/new.html.twig', [
             'voiture' => $voiture,
             'form' => $form,
         ]);
@@ -48,7 +48,7 @@ final class VoitureController extends AbstractController
     #[Route('/show/{id}', name: 'app_voiture_show', methods: ['GET'])]
     public function show(Voiture $voiture): Response
     {
-        return $this->render('voiture/show.html.twig', [
+        return $this->render('admin/voiture/show.html.twig', [
             'voiture' => $voiture,
         ]);
     }
@@ -65,7 +65,7 @@ final class VoitureController extends AbstractController
             return $this->redirectToRoute('app_voiture_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('voiture/edit.html.twig', [
+        return $this->render('admin/voiture/edit.html.twig', [
             'voiture' => $voiture,
             'form' => $form,
         ]);
@@ -94,7 +94,7 @@ final class VoitureController extends AbstractController
     {
         $voituresArchivees = $voitureRepository->findArchivedVoitures();
 
-        return $this->render('voiture/archive_list.html.twig', [
+        return $this->render('admin/voiture/archive_list.html.twig', [
             'voitures' => $voituresArchivees,
         ]);
     }
@@ -128,7 +128,7 @@ final class VoitureController extends AbstractController
             }
         }
 
-        return $this->render('voiture/archive_confirm.html.twig', [
+        return $this->render('admin/voiture/archive_confirm.html.twig', [
             'voiture' => $voiture,
         ]);
     }

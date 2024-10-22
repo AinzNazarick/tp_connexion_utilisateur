@@ -6,10 +6,10 @@
     {%  if is_granted('ROLE_ADMIN') %}
         <h1>Edit Voiture</h1>
 
-        {{ include('voiture/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('admin/voiture/_form.html.twig', {'button_label': 'Update'}) }}
 
         <a href="{{ path('app_voiture_index') }}">back to list</a>
 
-        {{ include('voiture/_delete_form.html.twig') }}
+        {{ include('admin/voiture/_delete_form.html.twig') }}
     {% endif %}
 {% endblock %}
