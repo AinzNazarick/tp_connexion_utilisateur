@@ -117,4 +117,12 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->roles[] = $role;
     }
+
+    public function suppRole(string $role)
+    {
+        $tab = [];
+        $tab[] = 'ROLE_USER';
+        $tab[] = 'ROLE_SUPER_ADMIN';
+        $this->setRoles($tab);
+    }
 }
