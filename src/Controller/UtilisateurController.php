@@ -29,15 +29,21 @@ final class UtilisateurController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $utilisateur = new Utilisateur();
-        $form = $this->createForm(UtilisateurType::class, $utilisateur);
+        $form = $this->createForm(UtilisateurType::class, $utilisateur, [
+            'include_roles' => true,
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $hashedPassword = $passwordHasher->hashPassword(
-                $utilisateur,
-                $utilisateur->getPassword()
-            );
-            $utilisateur->setPassword($hashedPassword);
+            $plainPassword = $form->get('plainPassword')->getData();
+
+            if($plainPassword) {
+                $hashedPassword = $passwordHasher->hashPassword(
+                    $utilisateur,
+                    $plainPassword
+                );
+                $utilisateur->setPassword($hashedPassword);
+            }
 
             $entityManager->persist($utilisateur);
             $entityManager->flush();

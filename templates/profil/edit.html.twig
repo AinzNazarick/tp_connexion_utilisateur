@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+    {% if is_granted('ROLE_USER') %}
+        <h1>Edit profil</h1>
+        {{ include('profil/_form.html.twig', { 'button_label': 'Update' }) }}
+    {% endif %}
+{% endblock %}
+
+

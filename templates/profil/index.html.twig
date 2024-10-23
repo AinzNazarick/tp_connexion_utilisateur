@@ -3,5 +3,9 @@
 {% block title %}Profil{% endblock %}
 
 {% block body %}
-    <h1>Hello {{ app.user.email }}</h1>
+    {% if is_granted('ROLE_USER') %}
+        <h1>Profil</h1>
+        <p>Email : {{ app.user.email }}</p>
+        <a href="{{ path('app_edit_profil') }}">Edit profil</a>
+    {% endif %}
 {% endblock %}
