@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Marque;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,6 +14,11 @@ class MarqueType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('media', FileType::class, [
+                'label' => 'Choisir un média : ',
+                'mapped' => false,
+                'required' => false,
+            ])
         ;
     }
 
